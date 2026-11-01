@@ -44,8 +44,8 @@ Or via an HTTP gateway:
 https://gateway.pinata.cloud/ipfs/bafkreib7cghyzbovipdxsb4gvbm7xs4rnwoa6imqui33yn5ilxfjdgxnqa
 ```
 
-**3. Verify the signature** — in the SLAD app (the "Verify" tab)
-or in Python:
+**3. Verify the signature** — in the SLAD web app
+(https://scifilabx.org/slad/ → "Verify" tab) or in Python:
 
 ```python
 import json, sys
