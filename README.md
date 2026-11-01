@@ -1,33 +1,33 @@
 # UNI-CNC-PRO — demo
 
-Demonstracyjna wersja UNI-CNC-PRO: edytora CNC i symulatora obróbki.
+Demonstration build of UNI-CNC-PRO: a CNC editor and machining simulator.
 
-## Pobieranie
+## Download
 
 - Windows: `UNI-CNC-PRO-demo-windows-x86_64.zip`
 - Linux: `UNI-CNC-PRO-demo-linux-x86_64.tar.gz`
 
-## Weryfikacja pobranego pliku
+## Verifying the downloaded file
 
-Wydanie jest **podpisane kryptograficznie** kluczem Ed25519 autora.
-Dzięki temu możesz sprawdzić, że pobrany plik jest identyczny z tym,
-który opublikował autor — nawet jeśli pobrałeś go z innego serwera.
+This release is **cryptographically signed** with the author's Ed25519 key.
+This lets you verify that the file you downloaded is identical to the one
+the author published — even if you got it from a different server.
 
 ```
-Ślad wydania (CID): bafkreib7cghyzbovipdxsb4gvbm7xs4rnwoa6imqui33yn5ilxfjdgxnqa
-Klucz autora      : 8eff5bc3e3bf6aa846d3d3921f7152f1f0ff570b87d8090fb670e54213041948
-Autor (adres)     : 5825c9958e443dca
+Release trace (CID): bafkreib7cghyzbovipdxsb4gvbm7xs4rnwoa6imqui33yn5ilxfjdgxnqa
+Author key        : 8eff5bc3e3bf6aa846d3d3921f7152f1f0ff570b87d8090fb670e54213041948
+Author (address)  : 5825c9958e443dca
 ```
 
-Szybkie sprawdzenie sumy kontrolnej:
+Quick checksum check:
 
 ```bash
 sha256sum UNI-CNC-PRO-demo-linux-x86_64.tar.gz
 # 487e4a7f420e1e9433e30b9ab42b42f920dac59cc1420b54e0add8185bd1128a
 ```
 
-Pełna instrukcja (w tym weryfikacja podpisu): **[WERYFIKACJA.md](WERYFIKACJA.md)**
+Full instructions (including signature verification): **[WERYFIKACJA.md](WERYFIKACJA.md)**
 
-## Licencja
+## License
 
-MIT — zobacz [LICENSE](LICENSE).
+MIT — see [LICENSE](LICENSE).
