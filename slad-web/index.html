@@ -1,0 +1,1062 @@
+<!doctype html>
+<html lang="pl">
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, viewport-fit=cover"
+        />
+        <meta name="theme-color" content="#0b0f14" />
+        <title data-i18n="app.tytul">SLAD — ślady w sieci</title>
+        <link rel="manifest" href="manifest.webmanifest" />
+        <style>
+            :root {
+                --bg: #0b0f14;
+                --panel: #131a22;
+                --panel2: #1a232e;
+                --line: #26313d;
+                --txt: #e6edf3;
+                --dim: #8b98a5;
+                --acc: #4cc2ff;
+                --ok: #3fb950;
+                --err: #f85149;
+                --warn: #d29922;
+            }
+            * {
+                box-sizing: border-box;
+            }
+            html,
+            body {
+                margin: 0;
+                padding: 0;
+                background: var(--bg);
+                color: var(--txt);
+                font:
+                    15px/1.5 system-ui,
+                    -apple-system,
+                    "Segoe UI",
+                    Roboto,
+                    sans-serif;
+                -webkit-text-size-adjust: 100%;
+            }
+            header {
+                padding: 14px 16px 10px;
+                border-bottom: 1px solid var(--line);
+                position: sticky;
+                top: 0;
+                background: var(--bg);
+                z-index: 10;
+                display: flex;
+                align-items: flex-start;
+                justify-content: space-between;
+                gap: 10px;
+            }
+            h1 {
+                margin: 0;
+                font-size: 17px;
+                letter-spacing: 0.4px;
+                font-weight: 600;
+            }
+            h1 span {
+                color: var(--acc);
+            }
+            .tit {
+                min-width: 0;
+            }
+            #lang {
+                flex: 0 0 auto;
+                width: auto;
+                padding: 6px 8px;
+                font-size: 12px;
+                border-radius: 8px;
+                background: var(--panel2);
+                color: var(--dim);
+            }
+            .sub {
+                color: var(--dim);
+                font-size: 12px;
+                margin-top: 2px;
+            }
+            nav {
+                display: flex;
+                gap: 4px;
+                overflow-x: auto;
+                padding: 8px 12px;
+                border-bottom: 1px solid var(--line);
+                position: sticky;
+                top: 60px;
+                background: var(--bg);
+                z-index: 9;
+                -webkit-overflow-scrolling: touch;
+            }
+            nav button {
+                flex: 0 0 auto;
+                background: transparent;
+                color: var(--dim);
+                border: 1px solid transparent;
+                padding: 8px 14px;
+                border-radius: 9px;
+                font-size: 14px;
+                cursor: pointer;
+            }
+            nav button.on {
+                background: var(--panel2);
+                color: var(--txt);
+                border-color: var(--line);
+            }
+            main {
+                padding: 16px;
+                max-width: 760px;
+                margin: 0 auto;
+            }
+            section {
+                display: none;
+            }
+            section.on {
+                display: block;
+            }
+            label {
+                display: block;
+                font-size: 12px;
+                color: var(--dim);
+                margin: 14px 0 5px;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            input,
+            textarea,
+            select {
+                width: 100%;
+                background: var(--panel);
+                color: var(--txt);
+                border: 1px solid var(--line);
+                border-radius: 10px;
+                padding: 11px 12px;
+                font-size: 15px;
+                font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            }
+            textarea {
+                min-height: 76px;
+                resize: vertical;
+            }
+            button.act {
+                width: 100%;
+                margin-top: 18px;
+                background: var(--acc);
+                color: #04141f;
+                border: 0;
+                border-radius: 11px;
+                padding: 14px;
+                font-size: 16px;
+                font-weight: 650;
+                cursor: pointer;
+            }
+            button.act:disabled {
+                opacity: 0.5;
+            }
+            button.ghost {
+                width: 100%;
+                margin-top: 8px;
+                background: var(--panel2);
+                color: var(--txt);
+                border: 1px solid var(--line);
+                border-radius: 11px;
+                padding: 12px;
+                font-size: 14px;
+                cursor: pointer;
+            }
+            .card {
+                background: var(--panel);
+                border: 1px solid var(--line);
+                border-radius: 13px;
+                padding: 14px;
+                margin-top: 14px;
+            }
+            .kv {
+                display: grid;
+                grid-template-columns: 112px 1fr;
+                gap: 6px 10px;
+                font-size: 13px;
+            }
+            .kv b {
+                color: var(--dim);
+                font-weight: 500;
+            }
+            .mono {
+                font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+                font-size: 12px;
+                word-break: break-all;
+                line-height: 1.45;
+            }
+            .msg {
+                margin-top: 14px;
+                padding: 12px;
+                border-radius: 10px;
+                font-size: 14px;
+                display: none;
+            }
+            .msg.on {
+                display: block;
+            }
+            .msg.ok {
+                background: rgba(63, 185, 80, 0.12);
+                border: 1px solid rgba(63, 185, 80, 0.4);
+            }
+            .msg.err {
+                background: rgba(248, 81, 73, 0.12);
+                border: 1px solid rgba(248, 81, 73, 0.4);
+            }
+            .msg.warn {
+                background: rgba(210, 153, 34, 0.12);
+                border: 1px solid rgba(210, 153, 34, 0.4);
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 13px;
+                margin-top: 10px;
+            }
+            th,
+            td {
+                padding: 8px 6px;
+                text-align: right;
+                border-bottom: 1px solid var(--line);
+            }
+            th:first-child,
+            td:first-child {
+                text-align: left;
+            }
+            th {
+                color: var(--dim);
+                font-weight: 500;
+                font-size: 11px;
+                text-transform: uppercase;
+            }
+            .r1 {
+                color: var(--warn);
+                font-weight: 700;
+            }
+            details {
+                margin-top: 14px;
+            }
+            summary {
+                cursor: pointer;
+                color: var(--dim);
+                font-size: 13px;
+            }
+            .note {
+                font-size: 12px;
+                color: var(--dim);
+                margin-top: 10px;
+                line-height: 1.5;
+            }
+            .row {
+                display: flex;
+                gap: 8px;
+            }
+            .row > * {
+                flex: 1;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="tit">
+                <h1>
+                    SLAD <span>·</span>
+                    <span data-i18n="app.tytul_suffix">ślady w sieci</span>
+                </h1>
+                <div class="sub" data-i18n="app.podtytul">
+                    Podpisuj ślady Ed25519 offline. Bez serwera, bez konta.
+                </div>
+            </div>
+            <select id="lang" aria-label="Language"></select>
+        </header>
+
+        <nav>
+            <button class="on" data-t="portfel" data-i18n="nav.portfel">
+                Portfel
+            </button>
+            <button data-t="podpisz" data-i18n="nav.podpisz">Podpisz</button>
+            <button data-t="weryfikuj" data-i18n="nav.weryfikuj">
+                Weryfikuj
+            </button>
+            <button data-t="ranking" data-i18n="nav.ranking">Ranking</button>
+            <button data-t="drzewo" data-i18n="nav.drzewo">Drzewo</button>
+        </nav>
+
+        <main>
+            <!-- ================= PORTFEL ================= -->
+            <section id="portfel" class="on">
+                <div id="p-stan" class="card">
+                    <div class="kv">
+                        <b data-i18n="portfel.klucz">Klucz publiczny</b>
+                        <div class="mono" id="p-pub">—</div>
+                        <b data-i18n="portfel.adres">Adres</b>
+                        <div class="mono" id="p-adres">—</div>
+                        <b>Zapisany</b>
+                        <div id="p-haslo">—</div>
+                    </div>
+                </div>
+
+                <label data-i18n="portfel.nowy"
+                    >Nowy portfel — hasło do szyfrowania</label
+                >
+                <input
+                    id="p-haslo-nowe"
+                    type="password"
+                    data-i18n-ph="portfel.placeholder"
+                    placeholder="hasło (min. 8 znaków)"
+                    autocomplete="new-password"
+                />
+                <button class="act" id="p-utworz" data-i18n="portfel.utworz">
+                    Utwórz nowy portfel
+                </button>
+
+                <details>
+                    <summary data-i18n="portfel.import">
+                        Mam już ziarno (import)
+                    </summary>
+                    <label data-i18n="portfel.ziarno"
+                        >Ziarno (base64url, 43 znaki)</label
+                    >
+                    <input id="p-ziarno" placeholder="" />
+                    <label data-i18n="portfel.nowy"
+                        >Hasło do zaszyfrowania</label
+                    >
+                    <input
+                        id="p-haslo-imp"
+                        type="password"
+                        placeholder="hasło (min. 8 znaków)"
+                    />
+                    <button
+                        class="ghost"
+                        id="p-importuj"
+                        data-i18n="portfel.importuj"
+                    >
+                        Zaimportuj
+                    </button>
+                </details>
+
+                <button
+                    class="ghost"
+                    id="p-pokaz-ziarno"
+                    data-i18n="portfel.pokaz"
+                >
+                    Pokaż ziarno (kopia zapasowa)
+                </button>
+                <button class="ghost" id="p-usun" data-i18n="portfel.usun">
+                    Usuń portfel z tego urządzenia
+                </button>
+
+                <div class="note" data-i18n="portfel.nota">
+                    Ziarno nigdy nie opuszcza przeglądarki. Trzymaj kopię na
+                    papierze — bez niej klucz przepada bezpowrotnie.
+                </div>
+                <div id="p-msg" class="msg"></div>
+            </section>
+
+            <!-- ================= PODPISZ ================= -->
+            <section id="podpisz">
+                <label data-i18n="podpisz.haslo">Hasło portfela</label>
+                <input
+                    id="s-haslo"
+                    type="password"
+                    placeholder="hasło"
+                    autocomplete="current-password"
+                />
+
+                <label data-i18n="podpisz.rodzic">CID rodzica</label>
+                <input
+                    id="s-rodzic"
+                    placeholder="bafkrei…"
+                    autocapitalize="off"
+                    spellcheck="false"
+                />
+
+                <label data-i18n="podpisz.depth">Głębokość (depth)</label>
+                <input
+                    id="s-depth"
+                    type="number"
+                    min="0"
+                    value="1"
+                    inputmode="numeric"
+                />
+
+                <label data-i18n="podpisz.usluga">Usługa</label>
+                <input
+                    id="s-usluga"
+                    data-i18n-ph="podpisz.usluga_ph"
+                    placeholder="np. hosting węzła"
+                />
+
+                <label data-i18n="podpisz.opis">Opis</label>
+                <textarea
+                    id="s-opis"
+                    data-i18n-ph="podpisz.opis_ph"
+                    placeholder="co oferujesz / co to za ślad"
+                ></textarea>
+
+                <button class="act" id="s-podpisz" data-i18n="podpisz.akcja">
+                    Podpisz ślad
+                </button>
+
+                <div id="s-msg" class="msg"></div>
+                <div id="s-wynik" class="card" style="display: none">
+                    <div class="kv">
+                        <b data-i18n="podpisz.odcisk">Odcisk</b>
+                        <div class="mono" id="s-odcisk">—</div>
+                        <b data-i18n="weryfikuj.depth">Głębokość</b>
+                        <div id="s-wdepth">—</div>
+                    </div>
+                    <label data-i18n="podpisz.plik">Gotowy plik JSON</label>
+                    <textarea
+                        id="s-json"
+                        readonly
+                        class="mono"
+                        style="min-height: 150px"
+                    ></textarea>
+                    <button
+                        class="ghost"
+                        id="s-kopiuj"
+                        data-i18n="podpisz.kopiuj"
+                    >
+                        Kopiuj JSON
+                    </button>
+                    <button
+                        class="ghost"
+                        id="s-pobierz"
+                        data-i18n="podpisz.pobierz"
+                    >
+                        Pobierz plik
+                    </button>
+                    <div class="note" data-i18n="podpisz.nota">
+                        CID policzy węzeł IPFS („ipfs add plik.json”), nie ta
+                        strona. Zanim opublikujesz, możesz sprawdzić plik w
+                        zakładce Weryfikuj.
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= WERYFIKUJ ================= -->
+            <section id="weryfikuj">
+                <label data-i18n="weryfikuj.wklej">Wklej JSON śladu</label>
+                <textarea
+                    id="w-json"
+                    class="mono"
+                    style="min-height: 180px"
+                    placeholder='{"version":"1.0", …}'
+                ></textarea>
+                <button class="act" id="w-sprawdz" data-i18n="weryfikuj.akcja">
+                    Weryfikuj podpis
+                </button>
+                <div id="w-msg" class="msg"></div>
+                <div id="w-wynik" class="card" style="display: none">
+                    <div class="kv">
+                        <b data-i18n="weryfikuj.autor">Autor</b>
+                        <div class="mono" id="w-autor">—</div>
+                        <b data-i18n="weryfikuj.depth">Głębokość</b>
+                        <div id="w-depth">—</div>
+                        <b data-i18n="weryfikuj.rodzic">Rodzic</b>
+                        <div class="mono" id="w-rodzic">—</div>
+                        <b data-i18n="weryfikuj.timestamp">Timestamp</b>
+                        <div id="w-ts">—</div>
+                        <b data-i18n="podpisz.odcisk">Odcisk</b>
+                        <div class="mono" id="w-odcisk">—</div>
+                    </div>
+                </div>
+                <div class="note" data-i18n="weryfikuj.nota">
+                    Weryfikacja dzieje się lokalnie w przeglądarce. Podpis
+                    Ed25519 jest sprawdzany bez żadnego serwera.
+                </div>
+            </section>
+
+            <!-- ================= RANKING ================= -->
+            <section id="ranking">
+                <label data-i18n="ranking.wklej"
+                    >Wklej stan (stan.json) albo dane śladów</label
+                >
+                <textarea
+                    id="r-json"
+                    class="mono"
+                    style="min-height: 120px"
+                    placeholder='{"znane_slady": {"bafkrei…": {…}, …}}'
+                ></textarea>
+                <button class="act" id="r-licz" data-i18n="ranking.akcja">
+                    Policz ranking
+                </button>
+                <div id="r-msg" class="msg"></div>
+                <div id="r-wynik" class="card" style="display: none">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th data-i18n="ranking.autor">adres</th>
+                                <th data-i18n="ranking.slady">ślady</th>
+                                <th data-i18n="ranking.ws">TW</th>
+                            </tr>
+                        </thead>
+                        <tbody id="r-tabela"></tbody>
+                    </table>
+                    <div class="note" data-i18n="ranking.nota">
+                        WŚ = głębokość + wsparcie (2×obcy autorzy) +
+                        pierwszeństwo. Liczone lokalnie — każdy dostanie ten sam
+                        wynik z tych samych danych.
+                    </div>
+                </div>
+                <button class="ghost" id="r-demo" data-i18n="ranking.demo">
+                    Wstaw przykład (3 autorzy)
+                </button>
+            </section>
+
+            <!-- ================= DRZEWO ================= -->
+            <section id="drzewo">
+                <label data-i18n="drzewo.wklej"
+                    >Wklej stan (stan.json) albo dane śladów</label
+                >
+                <textarea
+                    id="t-json"
+                    class="mono"
+                    style="min-height: 110px"
+                    placeholder='{"znane_slady": {"bafkrei…": {…}, …}}'
+                ></textarea>
+
+                <label data-i18n="drzewo.moj"
+                    >Twój ślad (CID) — opcjonalnie</label
+                >
+                <input
+                    id="t-moj"
+                    class="mono"
+                    placeholder="bafkrei…"
+                    autocapitalize="off"
+                    spellcheck="false"
+                />
+
+                <button class="act" id="t-rysuj" data-i18n="drzewo.akcja">
+                    Pokaż drzewo
+                </button>
+                <div id="t-msg" class="msg"></div>
+
+                <div id="t-wynik" class="card" style="display: none">
+                    <div class="kv">
+                        <b data-i18n="drzewo.slady">Ślady</b>
+                        <div id="t-liczba">—</div>
+                        <b data-i18n="drzewo.glebokosc">Maks. głębokość</b>
+                        <div id="t-gleb">—</div>
+                        <b data-i18n="drzewo.tryb">Tryb</b>
+                        <div id="t-tryb">—</div>
+                    </div>
+                    <svg
+                        id="t-svg"
+                        style="margin-top: 12px; display: block"
+                    ></svg>
+                    <div class="note" data-i18n="drzewo.nota">
+                        Wykres pokazuje rozkład śladów po głębokości. Przy
+                        dużych drzewach rysowane są poziomy, nie pojedyncze
+                        węzły — dzięki temu widok działa także dla setek tysięcy
+                        śladów.
+                    </div>
+                </div>
+
+                <button class="ghost" id="t-demo" data-i18n="drzewo.demo">
+                    Wstaw przykład
+                </button>
+            </section>
+        </main>
+
+        <script>
+            // Jeśli moduły ES się nie załadują (np. plik://), pokaż czytelny komunikat.
+            window.addEventListener("load", () => {
+                if (!window.__sladZaladowany) {
+                    const d = document.createElement("div");
+                    d.style.cssText =
+                        "margin:16px;padding:12px;border-radius:10px;" +
+                        "background:rgba(248,81,73,.12);border:1px solid rgba(248,81,73,.4)";
+                    d.textContent =
+                        "JavaScript modules failed to load. Open via HTTP " +
+                        "(e.g. python3 -m http.server), not as a file.";
+                    document.querySelector("main").prepend(d);
+                }
+            });
+        </script>
+        <script type="module">
+            import * as S from "./slad_core.js";
+            import {
+                LANGS,
+                ustawJezyk,
+                jezykStartowy,
+                aktualnyJezyk,
+                t,
+            } from "./i18n.js";
+            import { przygotujDrzewo, rysuj as rysujDrzewo } from "./drzewo.js";
+
+            /* ---------- pomocnicze ---------- */
+            const $ = (id) => document.getElementById(id);
+
+            /* ---------- i18n ---------- */
+            function przetlumacz() {
+                document.querySelectorAll("[data-i18n]").forEach((el) => {
+                    el.textContent = t(el.dataset.i18n);
+                });
+                document.querySelectorAll("[data-i18n-ph]").forEach((el) => {
+                    el.placeholder = t(el.dataset.i18nPh);
+                });
+                document.documentElement.lang = aktualnyJezyk();
+                document.title = t("app.tytul");
+                // dynamiczne etykiety stanu portfela
+                const r = wczytajRekord();
+                $("p-haslo").textContent = r ? t("portfel.zaszyfrowany") : "—";
+                if (!r) $("p-pub").textContent = t("portfel.brak");
+            }
+
+            function zbudujWyborJezyka() {
+                const sel = $("lang");
+                sel.innerHTML = "";
+                for (const { kod, nazwa } of LANGS) {
+                    const o = document.createElement("option");
+                    o.value = kod;
+                    o.textContent = nazwa;
+                    sel.appendChild(o);
+                }
+                sel.value = aktualnyJezyk();
+                sel.onchange = () => {
+                    ustawJezyk(sel.value);
+                    przetlumacz();
+                };
+            }
+
+            function pokaz(el, rodzaj, tekst) {
+                el.className = "msg on " + rodzaj;
+                el.textContent = tekst;
+            }
+            function ukryj(el) {
+                el.className = "msg";
+                el.textContent = "";
+            }
+
+            /* ---------- zakładki ---------- */
+            document.querySelectorAll("nav button").forEach((b) => {
+                b.onclick = () => {
+                    document
+                        .querySelectorAll("nav button")
+                        .forEach((x) => x.classList.remove("on"));
+                    document
+                        .querySelectorAll("section")
+                        .forEach((x) => x.classList.remove("on"));
+                    b.classList.add("on");
+                    $(b.dataset.t).classList.add("on");
+                };
+            });
+
+            /* ---------- magazyn portfela (localStorage, zaszyfrowany) ---------- */
+            const KLUCZ_STORE = "slad.portfel.v1";
+
+            async function kdf(haslo, solB64, iter = 200000) {
+                const sol = S.b64urlDoBajtow(solB64);
+                const mat = await crypto.subtle.importKey(
+                    "raw",
+                    new TextEncoder().encode(haslo),
+                    "PBKDF2",
+                    false,
+                    ["deriveBits"],
+                );
+                const bits = await crypto.subtle.deriveBits(
+                    {
+                        name: "PBKDF2",
+                        salt: sol,
+                        iterations: iter,
+                        hash: "SHA-256",
+                    },
+                    mat,
+                    256,
+                );
+                return new Uint8Array(bits);
+            }
+
+            async function zaszyfruj(ziarno, haslo) {
+                const sol = crypto.getRandomValues(new Uint8Array(16));
+                const iv = crypto.getRandomValues(new Uint8Array(12));
+                const klucz = await kdf(haslo, S.bajtyDoB64url(sol));
+                const k = await crypto.subtle.importKey(
+                    "raw",
+                    klucz,
+                    "AES-GCM",
+                    false,
+                    ["encrypt"],
+                );
+                const ct = new Uint8Array(
+                    await crypto.subtle.encrypt(
+                        { name: "AES-GCM", iv },
+                        k,
+                        ziarno,
+                    ),
+                );
+                return {
+                    v: 1,
+                    salt: S.bajtyDoB64url(sol),
+                    iv: S.bajtyDoB64url(iv),
+                    ct: S.bajtyDoB64url(ct),
+                };
+            }
+
+            async function odszyfruj(rekord, haslo) {
+                const sol = S.b64urlDoBajtow(rekord.salt);
+                const iv = S.b64urlDoBajtow(rekord.iv);
+                const ct = S.b64urlDoBajtow(rekord.ct);
+                const klucz = await kdf(haslo, S.bajtyDoB64url(sol), 200000);
+                const k = await crypto.subtle.importKey(
+                    "raw",
+                    klucz,
+                    "AES-GCM",
+                    false,
+                    ["decrypt"],
+                );
+                try {
+                    return new Uint8Array(
+                        await crypto.subtle.decrypt(
+                            { name: "AES-GCM", iv },
+                            k,
+                            ct,
+                        ),
+                    );
+                } catch {
+                    throw new Error("złe hasło");
+                }
+            }
+
+            function wczytajRekord() {
+                const s = localStorage.getItem(KLUCZ_STORE);
+                return s ? JSON.parse(s) : null;
+            }
+
+            async function odswiezPortfel() {
+                const r = wczytajRekord();
+                if (!r) {
+                    $("p-pub").textContent = "brak portfela";
+                    $("p-adres").textContent = "—";
+                    $("p-haslo").textContent = "—";
+                    return;
+                }
+                $("p-pub").textContent = r.pub;
+                $("p-adres").textContent = await S.adresKluczaAsync(r.pub);
+                $("p-haslo").textContent = "zaszyfrowany hasłem";
+            }
+
+            /* ---------- PORTFEL: akcje ---------- */
+            $("p-utworz").onclick = async () => {
+                try {
+                    const h = $("p-haslo-nowe").value;
+                    if (h.length < 8) throw new Error(t("portfel.za_krotkie"));
+                    const ziarno = crypto.getRandomValues(new Uint8Array(32));
+                    const pub = await S.kluczPubliczny(S.bajtyDoHex(ziarno));
+                    const rek = await zaszyfruj(ziarno, h);
+                    localStorage.setItem(
+                        KLUCZ_STORE,
+                        JSON.stringify({ ...rek, pub }),
+                    );
+                    await odswiezPortfel();
+                    pokaz($("p-msg"), "ok", t("portfel.utworzono"));
+                } catch (e) {
+                    pokaz($("p-msg"), "err", e.message);
+                }
+            };
+
+            $("p-importuj").onclick = async () => {
+                try {
+                    const h = $("p-haslo-imp").value;
+                    const z = $("p-ziarno").value.trim();
+                    if (h.length < 8) throw new Error(t("portfel.za_krotkie"));
+                    let ziarno;
+                    try {
+                        ziarno = S.b64urlDoBajtow(z);
+                    } catch {
+                        throw new Error(t("portfel.zle_ziarno"));
+                    }
+                    if (ziarno.length !== 32)
+                        throw new Error("ziarno musi mieć 32 bajty");
+                    const pub = await S.kluczPubliczny(S.bajtyDoHex(ziarno));
+                    const rek = await zaszyfruj(ziarno, h);
+                    localStorage.setItem(
+                        KLUCZ_STORE,
+                        JSON.stringify({ ...rek, pub }),
+                    );
+                    await odswiezPortfel();
+                    pokaz($("p-msg"), "ok", t("portfel.zaimportowano"));
+                } catch (e) {
+                    pokaz($("p-msg"), "err", e.message);
+                }
+            };
+
+            $("p-pokaz-ziarno").onclick = async () => {
+                try {
+                    const r = wczytajRekord();
+                    if (!r) throw new Error(t("portfel.brak"));
+                    const h = prompt(t("portfel.prosze_haslo"));
+                    if (!h) return;
+                    const ziarno = await odszyfruj(r, h);
+                    pokaz(
+                        $("p-msg"),
+                        "warn",
+                        t("portfel.ziarno.info") +
+                            " " +
+                            S.bajtyDoB64url(ziarno),
+                    );
+                } catch (e) {
+                    pokaz($("p-msg"), "err", e.message);
+                }
+            };
+
+            $("p-usun").onclick = () => {
+                if (!confirm(t("portfel.zapytanie"))) return;
+                localStorage.removeItem(KLUCZ_STORE);
+                odswiezPortfel();
+                pokaz($("p-msg"), "warn", t("portfel.usunieto"));
+            };
+
+            /* ---------- PODPISZ ---------- */
+            $("s-podpisz").onclick = async () => {
+                try {
+                    const r = wczytajRekord();
+                    if (!r) throw new Error(t("podpisz.brak_portfela"));
+                    const h = $("s-haslo").value;
+                    if (!h) throw new Error(t("podpisz.daj_haslo"));
+                    const ziarno = await odszyfruj(r, h);
+
+                    const depth = parseInt($("s-depth").value, 10);
+                    if (!Number.isFinite(depth) || depth < 0)
+                        throw new Error("złe depth");
+                    const rodzic = $("s-rodzic").value.trim() || null;
+                    if (depth > 0 && !rodzic)
+                        throw new Error(t("podpisz.trzeba_rodzica"));
+                    if (depth === 0 && rodzic)
+                        throw new Error(t("podpisz.korzen_bez_rodzica"));
+
+                    const payload = { typ: "usluga" };
+                    if ($("s-usluga").value.trim())
+                        payload.usluga = $("s-usluga").value.trim();
+                    if ($("s-opis").value.trim())
+                        payload.opis = $("s-opis").value.trim();
+
+                    const slad = await S.podpiszSlad(
+                        S.bajtyDoHex(ziarno),
+                        rodzic,
+                        depth,
+                        payload,
+                    );
+                    const odcisk = await S.hashTresci(slad);
+
+                    $("s-odcisk").textContent = odcisk;
+                    $("s-wdepth").textContent = slad.depth;
+                    $("s-json").value = JSON.stringify(slad, null, 1);
+                    $("s-wynik").style.display = "block";
+                    pokaz($("s-msg"), "ok", t("podpisz.gotowe"));
+                } catch (e) {
+                    pokaz($("s-msg"), "err", e.message);
+                }
+            };
+
+            $("s-kopiuj").onclick = async () => {
+                await navigator.clipboard.writeText($("s-json").value);
+                pokaz($("s-msg"), "ok", t("podpisz.skopiowano"));
+            };
+
+            $("s-pobierz").onclick = () => {
+                const blob = new Blob([$("s-json").value], {
+                    type: "application/json",
+                });
+                const a = document.createElement("a");
+                a.href = URL.createObjectURL(blob);
+                a.download =
+                    "slad-" + $("s-odcisk").textContent.slice(0, 12) + ".json";
+                a.click();
+                URL.revokeObjectURL(a.href);
+            };
+
+            /* ---------- WERYFIKUJ ---------- */
+            $("w-sprawdz").onclick = async () => {
+                try {
+                    const slad = JSON.parse($("w-json").value);
+                    await S.weryfikujPodpis(slad);
+                    $("w-autor").textContent = await S.adresKluczaAsync(
+                        slad.author_pubkey,
+                    );
+                    $("w-depth").textContent = slad.depth;
+                    $("w-rodzic").textContent =
+                        slad.parent_cid || t("weryfikuj.korzen");
+                    $("w-ts").textContent = new Date(
+                        slad.timestamp * 1000,
+                    ).toLocaleString("pl-PL");
+                    $("w-odcisk").textContent = await S.hashTresci(slad);
+                    $("w-wynik").style.display = "block";
+                    pokaz($("w-msg"), "ok", t("weryfikuj.ok"));
+                } catch (e) {
+                    $("w-wynik").style.display = "none";
+                    pokaz($("w-msg"), "err", e.message);
+                }
+            };
+
+            /* ---------- RANKING (identyczny algorytm jak rankuj.py) ---------- */
+            function obliczRanking(slady) {
+                const per = {},
+                    dzieci = {};
+                for (const [cid, s] of Object.entries(slady)) {
+                    (per[s.author_pubkey] ||= []).push([cid, s]);
+                    if (s.parent_cid) (dzieci[s.parent_cid] ||= []).push(cid);
+                }
+                const pierwszy = {};
+                for (const [a, l] of Object.entries(per))
+                    pierwszy[a] = Math.min(...l.map(([, s]) => s.timestamp));
+                const kolejnosc = {};
+                Object.entries(pierwszy)
+                    .sort((x, y) => x[1] - y[1] || (x[0] < y[0] ? -1 : 1))
+                    .forEach(([a], i) => (kolejnosc[a] = i + 1));
+
+                const wynik = [];
+                for (const [autor, lista] of Object.entries(per)) {
+                    const glebokosc = lista.reduce(
+                        (acc, [, s]) => acc + 1 + 0.05 * s.depth,
+                        0,
+                    );
+                    const wspierajacy = new Set();
+                    for (const [cid] of lista)
+                        for (const d of dzieci[cid] || [])
+                            if (slady[d].author_pubkey !== autor)
+                                wspierajacy.add(slady[d].author_pubkey);
+                    const wsparcie = 2.0 * wspierajacy.size;
+                    const pierwszenstwo = 10.0 / (1 + kolejnosc[autor]);
+                    wynik.push({
+                        autor,
+                        slady: lista.length,
+                        wspierajacy: wspierajacy.size,
+                        wartosc: +(
+                            glebokosc +
+                            wsparcie +
+                            pierwszenstwo
+                        ).toFixed(4),
+                    });
+                }
+                wynik.sort((a, b) => b.wartosc - a.wartosc);
+                return wynik;
+            }
+
+            $("r-licz").onclick = async () => {
+                try {
+                    const dane = JSON.parse($("r-json").value);
+                    const slady = dane.znane_slady || dane;
+                    const r = obliczRanking(slady);
+                    const tb = $("r-tabela");
+                    tb.innerHTML = "";
+                    for (let i = 0; i < r.length; i++) {
+                        const x = r[i];
+                        const tr = document.createElement("tr");
+                        const ad = document.createElement("td");
+                        ad.className = "mono";
+                        ad.textContent = (
+                            await S.adresKluczaAsync(x.autor)
+                        ).slice(0, 12);
+                        const tr1 = document.createElement("td");
+                        tr1.textContent = i + 1;
+                        if (i === 0) tr1.className = "r1";
+                        const t2 = document.createElement("td");
+                        t2.textContent = x.slady;
+                        const t3 = document.createElement("td");
+                        t3.textContent = x.wartosc.toFixed(2);
+                        tr.append(tr1, ad, t2, t3);
+                        tb.appendChild(tr);
+                    }
+                    $("r-wynik").style.display = "block";
+                    pokaz(
+                        $("r-msg"),
+                        "ok",
+                        t("ranking.gotowe", { n: r.length }),
+                    );
+                } catch (e) {
+                    pokaz($("r-msg"), "err", e.message);
+                }
+            };
+
+            $("r-demo").onclick = () => {
+                // przykład: korzeń A -> B -> C
+                const A = "aa".repeat(32),
+                    B = "bb".repeat(32),
+                    C = "cc".repeat(32);
+                const mk = (a, p, d, t) => ({
+                    version: "1.0",
+                    parent_cid: p,
+                    depth: d,
+                    timestamp: t,
+                    author_pubkey: a,
+                    payload: {},
+                    signature: "00".repeat(64),
+                });
+                const dane = {
+                    znane_slady: {
+                        c0: mk(A, null, 0, 100),
+                        c1: mk(B, "c0", 1, 200),
+                        c2: mk(C, "c1", 2, 300),
+                    },
+                };
+                $("r-json").value = JSON.stringify(dane, null, 1);
+            };
+
+            /* ---------- DRZEWO ---------- */
+            $("t-rysuj").onclick = () => {
+                try {
+                    const dane = JSON.parse($("t-json").value);
+                    const slady = dane.znane_slady || dane;
+                    if (
+                        !slady ||
+                        typeof slady !== "object" ||
+                        !Object.keys(slady).length
+                    ) {
+                        throw new Error(t("drzewo.blad"));
+                    }
+                    const moj = $("t-moj").value.trim() || null;
+                    const drzewo = przygotujDrzewo(slady, moj);
+                    rysujDrzewo($("t-svg"), drzewo);
+
+                    $("t-liczba").textContent = Object.keys(slady).length;
+                    $("t-gleb").textContent = drzewo.maks;
+                    $("t-tryb").textContent = t(
+                        drzewo.tryb === "pelny"
+                            ? "drzewo.pelny"
+                            : "drzewo.agregat",
+                    );
+                    $("t-wynik").style.display = "block";
+                    pokaz($("t-msg"), "ok", t("drzewo.gotowe"));
+                } catch (e) {
+                    $("t-wynik").style.display = "none";
+                    pokaz($("t-msg"), "err", e.message);
+                }
+            };
+
+            $("t-demo").onclick = () => {
+                // przyklad: 3 poziomy
+                const mk = (d, p) => ({
+                    version: "1.0",
+                    parent_cid: p,
+                    depth: d,
+                    timestamp: 100 + d,
+                    author_pubkey: "aa".repeat(32),
+                    payload: {},
+                    signature: "00".repeat(64),
+                });
+                const d = {
+                    znane_slady: {
+                        c0: mk(0, null),
+                        c1: mk(1, "c0"),
+                        c2: mk(2, "c1"),
+                    },
+                };
+                $("t-json").value = JSON.stringify(d, null, 1);
+            };
+
+            /* ---------- start ---------- */
+            window.__sladZaladowany = true;
+            ustawJezyk(jezykStartowy());
+            zbudujWyborJezyka();
+            przetlumacz();
+            odswiezPortfel();
+        </script>
+    </body>
+</html>
