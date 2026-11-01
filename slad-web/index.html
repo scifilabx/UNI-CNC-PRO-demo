@@ -275,8 +275,8 @@
 
         <nav>
             <button class="on" data-t="portfel" data-i18n="nav.portfel">
-                Portfel
-            </button>
+                            Klucz
+                        </button>
             <button data-t="podpisz" data-i18n="nav.podpisz">Podpisz</button>
             <button data-t="weryfikuj" data-i18n="nav.weryfikuj">
                 Weryfikuj
@@ -299,9 +299,7 @@
                     </div>
                 </div>
 
-                <label data-i18n="portfel.nowy"
-                    >Nowy portfel — hasło do szyfrowania</label
-                >
+                <label data-i18n="portfel.nowy">Nowy klucz — hasło do szyfrowania</label>
                 <input
                     id="p-haslo-nowe"
                     type="password"
@@ -310,7 +308,7 @@
                     autocomplete="new-password"
                 />
                 <button class="act" id="p-utworz" data-i18n="portfel.utworz">
-                    Utwórz nowy portfel
+                    Utwórz nowy klucz
                 </button>
 
                 <details>
@@ -346,7 +344,7 @@
                     Pokaż ziarno (kopia zapasowa)
                 </button>
                 <button class="ghost" id="p-usun" data-i18n="portfel.usun">
-                    Usuń portfel z tego urządzenia
+                    Usuń klucz z tego urządzenia
                 </button>
 
                 <div class="note" data-i18n="portfel.nota">
@@ -358,7 +356,7 @@
 
             <!-- ================= PODPISZ ================= -->
             <section id="podpisz">
-                <label data-i18n="podpisz.haslo">Hasło portfela</label>
+                <label data-i18n="podpisz.haslo">Hasło klucza</label>
                 <input
                     id="s-haslo"
                     type="password"
@@ -732,7 +730,7 @@
             async function odswiezPortfel() {
                 const r = wczytajRekord();
                 if (!r) {
-                    $("p-pub").textContent = "brak portfela";
+                    $("p-pub").textContent = "brak klucza";
                     $("p-adres").textContent = "—";
                     $("p-haslo").textContent = "—";
                     return;
