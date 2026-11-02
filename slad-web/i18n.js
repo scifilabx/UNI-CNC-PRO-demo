@@ -48,6 +48,7 @@ const pl = {
   'drzewo.demo': 'Wstaw przykład',
   'drzewo.gotowe': 'Drzewo narysowane.',
   'drzewo.blad': 'brak danych śladów',
+  'dane.zle': 'To nie wygląda na dane śladów. Wklej stan.json (plik ze „znane_slady”).',
   'drzewo.pusty': 'Wklej najpierw dane śladów (stan.json). Pole CID tylko podświetla Twój ślad.',
 
   'portfel.klucz': 'Klucz publiczny',
@@ -143,6 +144,7 @@ const en = {
   'drzewo.demo': 'Insert example',
   'drzewo.gotowe': 'Tree drawn.',
   'drzewo.blad': 'no trace data',
+  'dane.zle': 'This does not look like trace data. Paste stan.json (with "znane_slady").',
   'drzewo.pusty': 'First paste the trace data (stan.json). The CID field only highlights your trace.',
 
   'portfel.klucz': 'Public key',
@@ -238,6 +240,7 @@ const de = {
   'drzewo.demo': 'Beispiel einfügen',
   'drzewo.gotowe': 'Baum gezeichnet.',
   'drzewo.blad': 'keine Spurdaten',
+  'dane.zle': 'Das sieht nicht nach Spurdaten aus. Fügen Sie stan.json ein (mit „znane_slady“).',
   'drzewo.pusty': 'Fügen Sie zuerst die Spurdaten ein (stan.json). Das CID-Feld hebt nur Ihre Spur hervor.',
 
   'portfel.klucz': 'Öffentlicher Schlüssel',
@@ -333,6 +336,7 @@ const es = {
   'drzewo.demo': 'Insertar ejemplo',
   'drzewo.gotowe': 'Árbol dibujado.',
   'drzewo.blad': 'sin datos de huellas',
+  'dane.zle': 'Esto no parece datos de huellas. Pega stan.json (con «znane_slady»).',
   'drzewo.pusty': 'Primero pega los datos de trazas (stan.json). El campo CID solo resalta tu traza.',
 
   'portfel.klucz': 'Clave pública',
@@ -428,6 +432,7 @@ const fr = {
   'drzewo.demo': 'Insérer un exemple',
   'drzewo.gotowe': 'Arbre dessiné.',
   'drzewo.blad': 'aucune donnée de trace',
+  'dane.zle': 'Cela ne ressemble pas à des données de traces. Collez stan.json (avec « znane_slady »).',
   'drzewo.pusty': 'Collez d’abord les données de traces (stan.json). Le champ CID met seulement en évidence votre trace.',
 
   'portfel.klucz': 'Clé publique',

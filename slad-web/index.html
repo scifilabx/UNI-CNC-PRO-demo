@@ -924,7 +924,14 @@
                 const per = {},
                     dzieci = {};
                 for (const [cid, s] of Object.entries(slady)) {
-                    (per[s.author_pubkey] ||= []).push([cid, s]);
+                    const pub = s && typeof s === "object" ? s.author_pubkey : null;
+                    if (
+                        typeof pub !== "string" ||
+                        !/^[0-9a-fA-F]+$/.test(pub) ||
+                        pub.length % 2 !== 0
+                    )
+                        continue;
+                    (per[pub] ||= []).push([cid, s]);
                     if (s.parent_cid) (dzieci[s.parent_cid] ||= []).push(cid);
                 }
                 const pierwszy = {};
@@ -968,6 +975,7 @@
                     const dane = JSON.parse($("r-json").value);
                     const slady = dane.znane_slady || dane;
                     const r = obliczRanking(slady);
+                    if (!r.length) throw new Error(t("dane.zle"));
                     const tb = $("r-tabela");
                     tb.innerHTML = "";
                     for (let i = 0; i < r.length; i++) {
@@ -1037,6 +1045,13 @@
                     ) {
                         throw new Error(t("drzewo.blad"));
                     }
+                    const prawdziwe = Object.values(slady).filter(
+                        (s) =>
+                            s &&
+                            typeof s === "object" &&
+                            typeof s.depth === "number",
+                    );
+                    if (!prawdziwe.length) throw new Error(t("dane.zle"));
                     const moj = $("t-moj").value.trim() || null;
                     const drzewo = przygotujDrzewo(slady, moj);
                     rysujDrzewo($("t-svg"), drzewo);

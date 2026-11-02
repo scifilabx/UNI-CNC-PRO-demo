@@ -32,6 +32,7 @@ export const uk = {
   'drzewo.demo': 'Вставити приклад',
   'drzewo.gotowe': 'Дерево намальовано.',
   'drzewo.blad': 'немає даних слідів',
+  'dane.zle': 'Це не схоже на дані слідів. Вставте stan.json (зі «znane_slady»).',
   'drzewo.pusty': 'Спочатку вставте дані слідів (stan.json). Поле CID лише виділяє ваш слід.',
 
   'portfel.klucz': 'Публічний ключ',
@@ -128,6 +129,7 @@ export const cs = {
   'drzewo.demo': 'Vložit příklad',
   'drzewo.gotowe': 'Strom vykreslen.',
   'drzewo.blad': 'žádná data stop',
+  'dane.zle': 'Toto nevypadá jako data stop. Vložte stan.json (se „znane_slady“).',
   'drzewo.pusty': 'Nejprve vložte data stop (stan.json). Pole CID pouze zvýrazní vaši stopu.',
 
   'portfel.klucz': 'Veřejný klíč',
@@ -224,6 +226,7 @@ export const it = {
   'drzewo.demo': 'Inserisci esempio',
   'drzewo.gotowe': 'Albero disegnato.',
   'drzewo.blad': 'nessun dato delle tracce',
+  'dane.zle': 'Questo non sembra un dato di tracce. Incolla stan.json (con «znane_slady»).',
   'drzewo.pusty': 'Prima incolla i dati delle tracce (stan.json). Il campo CID evidenzia solo la tua traccia.',
 
   'portfel.klucz': 'Chiave pubblica',
@@ -320,6 +323,7 @@ export const pt = {
   'drzewo.demo': 'Inserir exemplo',
   'drzewo.gotowe': 'Árvore desenhada.',
   'drzewo.blad': 'sem dados de traços',
+  'dane.zle': 'Isto não parece dados de traços. Cole stan.json (com «znane_slady»).',
   'drzewo.pusty': 'Primeiro cole os dados dos traços (stan.json). O campo CID apenas destaca o seu traço.',
 
   'portfel.klucz': 'Chave pública',
