@@ -471,6 +471,8 @@
                     style="min-height: 180px"
                     placeholder='{"version":"1.0", …}'
                 ></textarea>
+                <input type="file" id="w-plik" accept=".json,application/json" style="display: none" />
+                <button class="ghost" id="w-wczytaj" data-i18n="json.wczytaj">Wczytaj plik JSON</button>
                 <button class="act" id="w-sprawdz" data-i18n="weryfikuj.akcja">
                     Weryfikuj podpis
                 </button>
@@ -506,6 +508,8 @@
                     style="min-height: 120px"
                     placeholder='{"znane_slady": {"bafkrei…": {…}, …}}'
                 ></textarea>
+                <input type="file" id="r-plik" accept=".json,application/json" style="display: none" />
+                <button class="ghost" id="r-wczytaj" data-i18n="json.wczytaj">Wczytaj plik JSON</button>
                 <button class="act" id="r-licz" data-i18n="ranking.akcja">
                     Policz ranking
                 </button>
@@ -544,6 +548,8 @@
                     style="min-height: 110px"
                     placeholder='{"znane_slady": {"bafkrei…": {…}, …}}'
                 ></textarea>
+                <input type="file" id="t-plik" accept=".json,application/json" style="display: none" />
+                <button class="ghost" id="t-wczytaj" data-i18n="json.wczytaj">Wczytaj plik JSON</button>
 
                 <label data-i18n="drzewo.moj"
                     >Twój ślad (CID) — opcjonalnie</label
@@ -1091,6 +1097,29 @@
                 };
                 $("t-json").value = JSON.stringify(d, null, 1);
             };
+
+            /* ---------- WCZYTYWANIE PLIKOW JSON ---------- */
+            function podepnijPlik(idInput, idTextarea, idAkcja) {
+                const inp = $(idInput);
+                if (!inp) return;
+                inp.onchange = () => {
+                    const f = inp.files && inp.files[0];
+                    if (!f) return;
+                    const rd = new FileReader();
+                    rd.onload = () => {
+                        $(idTextarea).value = rd.result;
+                        if (idAkcja && $(idAkcja)) $(idAkcja).click();
+                    };
+                    rd.readAsText(f);
+                    inp.value = "";
+                };
+            }
+            $("w-wczytaj").onclick = () => $("w-plik").click();
+            $("r-wczytaj").onclick = () => $("r-plik").click();
+            $("t-wczytaj").onclick = () => $("t-plik").click();
+            podepnijPlik("w-plik", "w-json", "w-sprawdz");
+            podepnijPlik("r-plik", "r-json", "r-licz");
+            podepnijPlik("t-plik", "t-json", "t-rysuj");
 
             /* ---------- start ---------- */
             window.__sladZaladowany = true;

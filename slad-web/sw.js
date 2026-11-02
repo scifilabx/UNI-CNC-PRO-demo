@@ -1,5 +1,5 @@
 /* SLAD — service worker: aplikacja działa offline po pierwszym otwarciu. */
-const CACHE = 'slad-v4';
+const CACHE = 'slad-v5';
 const PLIKI = [
   './index.html',
   './slad_core.js',
