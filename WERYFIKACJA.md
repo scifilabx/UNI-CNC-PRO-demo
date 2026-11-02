@@ -32,21 +32,31 @@ sha256sum UNI-CNC-PRO-demo-linux-x86_64.tar.gz
 Get-FileHash .\UNI-CNC-PRO-demo-windows-x86_64.zip -Algorithm SHA256
 ```
 
-**2. Get the trace.** Easiest — download it from this repository (no IPFS
-node needed): **[slad-bafkreib7cgh.json](slad-bafkreib7cgh.json)**.
-It is the signed record; any tampering invalidates the signature.
+**2. Get the trace.** Pick whichever is easiest — all give the same signed
+record.
 
-Or fetch it from IPFS:
+**Option A — copy it right here** (no tools needed):
+
+```json
+{"author_pubkey":"8eff5bc3e3bf6aa846d3d3921f7152f1f0ff570b87d8090fb670e54213041948","depth":1,"parent_cid":"bafkreigfhhqx2kzfu5shdcazisoei7gag676uabngyxzumc2geuk4462m4","payload":{"data":"2026-11-01","projekt":"UNI-CNC-PRO-demo","repo":"https://github.com/czerwoney/UNI-CNC-PRO-demo","typ":"release","wersja":"2026-09-20","wydania":[{"plik":"UNI-CNC-PRO-demo-linux-x86_64.tar.gz","rozmiar":1435620,"sha256":"487e4a7f420e1e9433e30b9ab42b42f920dac59cc1420b54e0add8185bd1128a"},{"plik":"UNI-CNC-PRO-demo-windows-x86_64.zip","rozmiar":5490778,"sha256":"89632f5db6e76a90ef8fcffd367d790d62db743521df921fa11ba6ccc6b5b3be"}]},"signature":"be635e8c5b13d859a3695606aa99f61b5860e631d3cb83eb50de6659d8197b883a5bb6418b57d2d061fc2700f9690da93c2afef9982c3be35c2f68026cadfb0a","timestamp":1793555032,"version":"1.0"}
+```
+
+**Option B — download the file** from this repository:
+**[slad-bafkreib7cgh.json](slad-bafkreib7cgh.json)**
+
+**Option C — fetch from IPFS** (requires an IPFS node):
 
 ```bash
 ipfs cat bafkreib7cghyzbovipdxsb4gvbm7xs4rnwoa6imqui33yn5ilxfjdgxnqa
 ```
 
-Or via an HTTP gateway:
+**Option D — HTTP gateway:**
 
 ```
 https://gateway.pinata.cloud/ipfs/bafkreib7cghyzbovipdxsb4gvbm7xs4rnwoa6imqui33yn5ilxfjdgxnqa
 ```
+
+Any change to the content invalidates the signature.
 
 **3. Verify the signature** — in the SLAD web app
 (https://scifilabx.org/slad/ → "Verify" tab) or in Python:
