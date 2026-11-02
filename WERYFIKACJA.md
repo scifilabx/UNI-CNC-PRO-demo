@@ -32,7 +32,11 @@ sha256sum UNI-CNC-PRO-demo-linux-x86_64.tar.gz
 Get-FileHash .\UNI-CNC-PRO-demo-windows-x86_64.zip -Algorithm SHA256
 ```
 
-**2. Fetch the trace** (requires an IPFS node):
+**2. Get the trace.** Easiest — download it from this repository (no IPFS
+node needed): **[slad-bafkreib7cgh.json](slad-bafkreib7cgh.json)**.
+It is the signed record; any tampering invalidates the signature.
+
+Or fetch it from IPFS:
 
 ```bash
 ipfs cat bafkreib7cghyzbovipdxsb4gvbm7xs4rnwoa6imqui33yn5ilxfjdgxnqa

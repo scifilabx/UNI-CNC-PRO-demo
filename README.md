@@ -28,6 +28,8 @@ sha256sum UNI-CNC-PRO-demo-linux-x86_64.tar.gz
 
 Full instructions (including signature verification): **[WERYFIKACJA.md](WERYFIKACJA.md)**
 
+Signed trace (JSON): **[slad-bafkreib7cgh.json](slad-bafkreib7cgh.json)** — download it and load it in the verifier.
+
 Verify in your browser, no installation needed:
 **https://scifilabx.org/slad/** (SLAD web app → "Verify" tab).
 
