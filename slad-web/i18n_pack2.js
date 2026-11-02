@@ -26,6 +26,7 @@ export const uk = {
   'drzewo.demo': 'Вставити приклад',
   'drzewo.gotowe': 'Дерево намальовано.',
   'drzewo.blad': 'немає даних слідів',
+  'drzewo.pusty': 'Спочатку вставте дані слідів (stan.json). Поле CID лише виділяє ваш слід.',
 
   'portfel.klucz': 'Публічний ключ',
   'portfel.adres': 'Адреса',
@@ -115,6 +116,7 @@ export const cs = {
   'drzewo.demo': 'Vložit příklad',
   'drzewo.gotowe': 'Strom vykreslen.',
   'drzewo.blad': 'žádná data stop',
+  'drzewo.pusty': 'Nejprve vložte data stop (stan.json). Pole CID pouze zvýrazní vaši stopu.',
 
   'portfel.klucz': 'Veřejný klíč',
   'portfel.adres': 'Adresa',
@@ -204,6 +206,7 @@ export const it = {
   'drzewo.demo': 'Inserisci esempio',
   'drzewo.gotowe': 'Albero disegnato.',
   'drzewo.blad': 'nessun dato delle tracce',
+  'drzewo.pusty': 'Prima incolla i dati delle tracce (stan.json). Il campo CID evidenzia solo la tua traccia.',
 
   'portfel.klucz': 'Chiave pubblica',
   'portfel.adres': 'Indirizzo',
@@ -293,6 +296,7 @@ export const pt = {
   'drzewo.demo': 'Inserir exemplo',
   'drzewo.gotowe': 'Árvore desenhada.',
   'drzewo.blad': 'sem dados de traços',
+  'drzewo.pusty': 'Primeiro cole os dados dos traços (stan.json). O campo CID apenas destaca o seu traço.',
 
   'portfel.klucz': 'Chave pública',
   'portfel.adres': 'Endereço',

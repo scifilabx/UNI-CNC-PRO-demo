@@ -1000,7 +1000,9 @@
             /* ---------- DRZEWO ---------- */
             $("t-rysuj").onclick = () => {
                 try {
-                    const dane = JSON.parse($("t-json").value);
+                    const surowe = $("t-json").value.trim();
+                    if (!surowe) throw new Error(t("drzewo.pusty"));
+                    const dane = JSON.parse(surowe);
                     const slady = dane.znane_slady || dane;
                     if (
                         !slady ||

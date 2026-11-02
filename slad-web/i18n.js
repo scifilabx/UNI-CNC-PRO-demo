@@ -42,6 +42,7 @@ const pl = {
   'drzewo.demo': 'Wstaw przykład',
   'drzewo.gotowe': 'Drzewo narysowane.',
   'drzewo.blad': 'brak danych śladów',
+  'drzewo.pusty': 'Wklej najpierw dane śladów (stan.json). Pole CID tylko podświetla Twój ślad.',
 
   'portfel.klucz': 'Klucz publiczny',
   'portfel.adres': 'Adres',
@@ -130,6 +131,7 @@ const en = {
   'drzewo.demo': 'Insert example',
   'drzewo.gotowe': 'Tree drawn.',
   'drzewo.blad': 'no trace data',
+  'drzewo.pusty': 'First paste the trace data (stan.json). The CID field only highlights your trace.',
 
   'portfel.klucz': 'Public key',
   'portfel.adres': 'Address',
@@ -218,6 +220,7 @@ const de = {
   'drzewo.demo': 'Beispiel einfügen',
   'drzewo.gotowe': 'Baum gezeichnet.',
   'drzewo.blad': 'keine Spurdaten',
+  'drzewo.pusty': 'Fügen Sie zuerst die Spurdaten ein (stan.json). Das CID-Feld hebt nur Ihre Spur hervor.',
 
   'portfel.klucz': 'Öffentlicher Schlüssel',
   'portfel.adres': 'Adresse',
@@ -306,6 +309,7 @@ const es = {
   'drzewo.demo': 'Insertar ejemplo',
   'drzewo.gotowe': 'Árbol dibujado.',
   'drzewo.blad': 'sin datos de huellas',
+  'drzewo.pusty': 'Primero pega los datos de trazas (stan.json). El campo CID solo resalta tu traza.',
 
   'portfel.klucz': 'Clave pública',
   'portfel.adres': 'Dirección',
@@ -394,6 +398,7 @@ const fr = {
   'drzewo.demo': 'Insérer un exemple',
   'drzewo.gotowe': 'Arbre dessiné.',
   'drzewo.blad': 'aucune donnée de trace',
+  'drzewo.pusty': 'Collez d’abord les données de traces (stan.json). Le champ CID met seulement en évidence votre trace.',
 
   'portfel.klucz': 'Clé publique',
   'portfel.adres': 'Adresse',
