@@ -257,6 +257,24 @@
             .row > * {
                 flex: 1;
             }
+            .info {
+                background: var(--panel);
+                border: 1px solid var(--line);
+                border-radius: 12px;
+                padding: 12px 14px;
+                margin-bottom: 16px;
+            }
+            .info summary {
+                color: var(--acc);
+                font-weight: 600;
+                cursor: pointer;
+            }
+            .info p {
+                font-size: 13px;
+                color: var(--txt);
+                margin: 10px 0 0;
+                line-height: 1.5;
+            }
         </style>
     </head>
     <body>
@@ -286,6 +304,14 @@
         </nav>
 
         <main>
+            <details class="info" open>
+                <summary data-i18n="info.title">Jak korzystać z SLAD? — krótki przewodnik</summary>
+                <p data-i18n="info.trace">Ślad — mały podpisany wpis: „to opublikowałem, podpisane moim kluczem”. Nie da się go podrobić.</p>
+                <p data-i18n="info.cid">CID — unikalny adres/odcisk pliku lub wpisu, np. bafkrei… Mając CID, znajdziesz dokładnie tę treść. Nie musisz go rozumieć — wklej go tam, gdzie jest proszony.</p>
+                <p data-i18n="info.json">JSON / dane śladów — surowa treść śladu. Zaczyna się od { i kończy }. Te klamry to tylko format — nic nie zmieniaj, wklej całość tak, jak dostałeś (np. z pliku stan.json lub .json).</p>
+                <p data-i18n="info.where">Skąd wziąć dane? Od autora wydania (WERYFIKACJA.md lub .json) albo pobierając CID z IPFS.</p>
+                <p data-i18n="info.tabs">Zakładki: Klucz — utwórz/zaimportuj klucz (chroń hasłem, ziarno na papierze). Podpisz — podpisz nowy ślad. Weryfikuj — wklej JSON śladu i sprawdź podpis. Ranking — wklej stan (stan.json). Drzewo — wklej stan i opcjonalnie swój CID.</p>
+            </details>
             <!-- ================= PORTFEL ================= -->
             <section id="portfel" class="on">
                 <div id="p-stan" class="card">
